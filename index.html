@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <style type="text/css">
+            body {
+                margin: 10px;
+                background-color: rgb(244, 226, 220);
+                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                text-align: center;
+            }
+
+            .wrapper {
+                display:inline-block;
+                background-color: rgb(251, 220, 251);
+                border-radius: 25px;
+            }
+
+            .info {
+                margin: 25px;
+                font-size: 20px;
+            }
+
+            .questions {
+                display: inline-block;
+                text-align: left;
+                margin: 20px;
+                background-color: rgb(251, 220, 251);
+                border-radius: 25px;
+            }
+
+            .q {
+                margin:20px;
+                font-size: 17px;
+            }
+
+            #description:hover {
+                cursor: pointer; 
+            }
+
+        </style>
+
+        <script>
+            function revealDescription(data){
+                description.innerHTML = data.Plot;
+            }
+        </script>
+    </head>
+    <body>
+        <script>
+            fetch("http://www.omdbapi.com/?t=Parent_Trap&apikey=73688065")
+                .then(res => res.text())
+                .then(data => {
+                    header = document.getElementById("header");
+                    header.innerHTML = "Movie Information:";
+
+                    data = JSON.parse(data);
+                    tite = document.getElementById("title")
+                    title.innerHTML = "The title of the movie is " + data.Title;
+
+                    year = document.getElementById("year");
+                    year.innerHTML = "It was made in the year " + data.Year;
+
+                    rating = document.getElementById("rating");
+                    rating.innerHTML = "It is rated " + data.Rated;
+
+                    director = document.getElementById("director");
+                    director.innerHTML = "It was directed by " + data.Director;
+
+                    plot = document.getElementById("description");
+                    plot.innerHTML = "Click here to reveal the plot SPOILER ALERT!"
+                    plot.addEventListener("click", function() {revealDescription(data)});
+
+                    document.getElementById("question1").innerHTML = "1. My API provides information about an inputted movie. It provides information about the director, actors, when it was made, the rating, its awards and nominations, and more. "
+                    document.getElementById("question2").innerHTML = "2. I found it on this website: <a href='https://www.omdbapi.com/'>https://www.omdbapi.com/</a>"
+                    document.getElementById("question3").innerHTML = "3. I had to provide the title of the movie (a movie with multiple words is entered like this: Parent_Trap) and my key that I was given when I signed up for the free API which is 73688065"
+                    document.getElementById("question4").innerHTML = "4. I think this would be useful on a movie recommendation application where a user can enter a genre of movies they are interested in and it will show them movies in that genre and their plots. It could also be useful for a streaming service so they could get the information about the movies they have on their site."
+                })
+                .catch(error => console.log(error));
+        </script>
+
+        <h1 id="header"></h1>
+        <div class="wrapper">
+            <div id="title" class="info"></div>
+            <div id="year" class="info"></div>
+            <div id="rating" class="info"></div>
+            <div id="director" class="info"></div>
+        </div>
+        <br>
+        <div id="description" class="info"></div>
+        <br><br><br><br>
+        <div class="questions">
+            <div id="question1" class="q"></div>
+            <div id="question2" class="q"></div>
+            <div id="question3" class="q"></div>
+            <div id="question4" class="q"></div>
+        </div>
+
+    </body>
+</html>
